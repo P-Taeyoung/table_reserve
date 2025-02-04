@@ -21,7 +21,6 @@ public class SignUpApplication {
         }
     }
 
-    private String getRandomCode(){return RandomString;}
 
 
 }
