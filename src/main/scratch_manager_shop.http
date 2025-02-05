@@ -1,16 +1,17 @@
 ### 매장 등록
-POST http://localhost:8080/manager/shop?managerId=4
+POST http://localhost:8080/manager/shop/register?managerId=4
 Content-Type: application/json
 
 {
-  "managerId": 0,
+  "managerId": 2,
   "name": "맥도날드2",
-  "locate": "동대문구",
-  "description": "동대문구에 있는 맥도날드 프랜차이즈"
+  "locate": "중랑구",
+  "description": "중랑구 상봉동",
+  "reserveLimit": 10
 }
 
 ### 매장 수정
-PUT http://localhost:8080/manager/shop?shopId=1
+PUT http://localhost:8080/manager/shop/register?shopId=1
 Content-Type: application/json
 
 {
@@ -20,5 +21,5 @@ Content-Type: application/json
 }
 
 ### 매장 삭제
-DELETE http://localhost:8080/manager/shop?shopId=2
+DELETE http://localhost:8080/manager/shop/register?shopId=2
 

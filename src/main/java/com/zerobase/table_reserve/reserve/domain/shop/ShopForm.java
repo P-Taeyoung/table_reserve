@@ -1,4 +1,4 @@
-package com.zerobase.table_reserve.manager.domain.form;
+package com.zerobase.table_reserve.reserve.domain.shop;
 
 import lombok.*;
 
@@ -9,9 +9,10 @@ import lombok.*;
 @AllArgsConstructor
 public class ShopForm {
 
-
     private Long managerId;
     private String name;
     private String locate;
     private String description;
+    private Integer reserveLimit;
+
 }

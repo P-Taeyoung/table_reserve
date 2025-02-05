@@ -1,20 +1,18 @@
-package com.zerobase.table_reserve.manager.service.impl;
+package com.zerobase.table_reserve.reserve.service.impl;
 
-import com.zerobase.table_reserve.manager.domain.entity.Shop;
-import com.zerobase.table_reserve.manager.domain.form.ShopDto;
-import com.zerobase.table_reserve.manager.domain.form.ShopForm;
-import com.zerobase.table_reserve.manager.domain.form.ShopUpdateForm;
-import com.zerobase.table_reserve.manager.domain.repository.ShopRepository;
-import com.zerobase.table_reserve.manager.service.ManagerResService;
+import com.zerobase.table_reserve.reserve.domain.entity.Shop;
+import com.zerobase.table_reserve.reserve.domain.shop.ShopDto;
+import com.zerobase.table_reserve.reserve.domain.shop.ShopForm;
+import com.zerobase.table_reserve.reserve.domain.shop.ShopUpdateForm;
+import com.zerobase.table_reserve.reserve.domain.repository.ShopRepository;
+import com.zerobase.table_reserve.reserve.service.ManagerShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
-public class ManagerResServiceImpl implements ManagerResService {
+public class ManagerShopServiceImpl implements ManagerShopService {
 
     private final ShopRepository shopRepository;
 
@@ -32,6 +30,7 @@ public class ManagerResServiceImpl implements ManagerResService {
                 .orElseThrow(RuntimeException::new);
         shop.setName(form.getName());
         shop.setLocate(form.getLocate());
+        shop.setReserveLimit(form.getReserveLimit());
         shop.setDescription(form.getDescription());
 
         return ShopDto.from(shop);

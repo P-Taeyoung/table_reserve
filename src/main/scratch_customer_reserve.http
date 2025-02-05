@@ -1,0 +1,19 @@
+### 매장 검색
+GET http://localhost:8080/search/shop?shopName=롯데
+Content-Type: application/json
+
+
+### 매장 상세정보 확인
+GET http://localhost:8080/search/shop/detail?shopId=4
+Content-Type: application/json
+
+
+
+### 매장 예약
+POST http://localhost:8080/reserve?customerId=2
+Content-Type: application/json
+
+{
+  "shopId": 1,
+  "reserveTime": "2025-02-06 12:20"
+}
