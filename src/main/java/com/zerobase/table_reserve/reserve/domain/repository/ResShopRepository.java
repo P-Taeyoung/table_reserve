@@ -22,5 +22,6 @@ public interface ResShopRepository extends JpaRepository<ResShop, Long> {
 
     @Query("SELECT r FROM ResShop r WHERE r.id = :reserveId AND r.resStatus = 'BEFORE'")
     Optional<ResShop> findByIdAndResStatus(@Param("reserveId") Long reserveId);
+
 }
 

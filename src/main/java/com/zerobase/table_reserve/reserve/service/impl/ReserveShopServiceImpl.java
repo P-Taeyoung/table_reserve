@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,14 @@ public class ReserveShopServiceImpl implements ReserveShopService {
     @Override
     public ReqResResponse reserveShop(Long customerId, ReqResForm form) {
 
-        Shop shop = shopRepository.findById(form.getShopId()).orElseThrow(RuntimeException::new);
+        Optional<Shop> optionalShop = shopRepository.findById(form.getShopId());
+
+        //매장 존재하지 않음.
+        if (optionalShop.isEmpty()) {
+            throw new RuntimeException();
+        }
+
+        Shop shop = optionalShop.get();
 
 
         // 예약시간 세팅
@@ -50,7 +58,8 @@ public class ReserveShopServiceImpl implements ReserveShopService {
         // 예약처리
         ResShop resShop = resShopRepository.save(
                 ResShop.builder()
-                        .shopId(form.getShopId())
+                        .managerId(shop.getManagerId())
+                        .shopId(shop.getId())
                         .cusId(customerId)
                         .reserveTime(adjustResTime)
                         .resStatus(ResShop.RESERVE_BEFORE)
