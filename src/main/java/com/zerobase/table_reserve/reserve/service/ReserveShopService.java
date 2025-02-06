@@ -4,5 +4,8 @@ import com.zerobase.table_reserve.reserve.domain.shop.ReqResForm;
 import com.zerobase.table_reserve.reserve.domain.shop.ReqResResponse;
 
 public interface ReserveShopService {
+    /**
+     * 매장 예약
+     */
     ReqResResponse reserveShop(Long customerId, ReqResForm form);
 }

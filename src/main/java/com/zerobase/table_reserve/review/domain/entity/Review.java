@@ -24,7 +24,7 @@ public class Review extends BaseEntity {
     private Long shopId;
     private Long regId;
 
-
+    @Enumerated(EnumType.STRING) // Enum을 문자열로 저장
     private Rating rating;
 
     @Lob

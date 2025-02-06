@@ -1,5 +1,7 @@
 package com.zerobase.table_reserve.reserve.service.impl;
 
+import com.zerobase.table_reserve.exception.CustomException;
+import com.zerobase.table_reserve.exception.ErrorCode;
 import com.zerobase.table_reserve.reserve.domain.entity.ResShop;
 import com.zerobase.table_reserve.reserve.domain.entity.Shop;
 import com.zerobase.table_reserve.reserve.domain.repository.ResShopRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 @Service
@@ -22,13 +25,13 @@ public class ReserveShopServiceImpl implements ReserveShopService {
     private final ShopRepository shopRepository;
 
     @Override
-    public ReqResResponse reserveShop(Long customerId, ReqResForm form) {
+    public ReqResResponse reserveShop(Long customerId, ReqResForm form){
 
         Optional<Shop> optionalShop = shopRepository.findById(form.getShopId());
 
         //매장 존재하지 않음.
         if (optionalShop.isEmpty()) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.NOT_FOUND_SHOP);
         }
 
         Shop shop = optionalShop.get();
@@ -36,14 +39,19 @@ public class ReserveShopServiceImpl implements ReserveShopService {
 
         // 예약시간 세팅
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime resTime = LocalDateTime.parse(form.getReserveTime(), formatter);
+        LocalDateTime resTime;
+        try {
+            resTime = LocalDateTime.parse(form.getReserveTime(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new CustomException(ErrorCode.INVALID_RESERVE_TIME_FORMAT);
+        }
         LocalDateTime adjustResTime = adjustTime(resTime);
 
         //TODO 시간입력을 형식에 맞지 않게 입력했을 때 예외처리해야함
 
         //해당 예약시간은 현재 시간 이후여야 함.
         if (adjustResTime.isBefore(LocalDateTime.now())) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.IMPOSSIBLE_RESERVE_TIME);
         }
 
         int totalGuests = resShopRepository.sumNumOfGuestsByShopIdAndReserveTime(form.getShopId(), adjustResTime) != null
@@ -52,7 +60,7 @@ public class ReserveShopServiceImpl implements ReserveShopService {
 
         // 해당 예약시간에 예약정원이 차있으면 예약 불가
         if (shop.getReserveLimit() < totalGuests + form.getNumOfGuests()) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.FULLY_RESERVED);
         }
 
         // 예약처리

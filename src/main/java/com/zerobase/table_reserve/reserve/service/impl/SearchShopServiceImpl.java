@@ -1,5 +1,7 @@
 package com.zerobase.table_reserve.reserve.service.impl;
 
+import com.zerobase.table_reserve.exception.CustomException;
+import com.zerobase.table_reserve.exception.ErrorCode;
 import com.zerobase.table_reserve.reserve.domain.shop.SearchShopDto;
 import com.zerobase.table_reserve.reserve.service.SearchShopService;
 import com.zerobase.table_reserve.reserve.domain.shop.ShopDto;
@@ -24,7 +26,7 @@ public class SearchShopServiceImpl implements SearchShopService {
                         .orElse(Collections.emptyList());
         if (searchShopDtos.isEmpty()) {
             //TODO 검색된 매장이 없다고 처리
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.NOT_FOUND_SHOP);
         }
         return searchShopDtos;
     }
@@ -32,6 +34,6 @@ public class SearchShopServiceImpl implements SearchShopService {
     @Override
     public ShopDto getDetail(long shopId) {
         return shopRepository.findById(shopId).map(ShopDto::from)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_SHOP));
     }
 }

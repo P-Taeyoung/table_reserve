@@ -1,5 +1,7 @@
 package com.zerobase.table_reserve.reserve.service.impl;
 
+import com.zerobase.table_reserve.exception.CustomException;
+import com.zerobase.table_reserve.exception.ErrorCode;
 import com.zerobase.table_reserve.reserve.domain.entity.ResShop;
 import com.zerobase.table_reserve.reserve.domain.entity.ResShopCode;
 import com.zerobase.table_reserve.reserve.domain.repository.ResShopRepository;
@@ -26,8 +28,7 @@ public class CheckReservationServiceImpl implements CheckReservationService {
         //예약목록 불러옴
         List<ResShop> resShops = resShopRepository.findByCusIdAndShopId(shopId, customerId);
         if (resShops.isEmpty()) {
-            //TODO 예약된 정보가 없습니다. 처리
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.NOT_FOUND_RESERVATION);
         }
 
         //
@@ -39,7 +40,7 @@ public class CheckReservationServiceImpl implements CheckReservationService {
     public ResShopDto useReserve(Long reserveId) {
         Optional<ResShop> resShop = resShopRepository.findByIdAndResStatus(reserveId);
         if (resShop.isEmpty()) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.NOT_FOUND_RESERVATION);
         }
 
         ResShop reserveShop = resShop.get();
@@ -47,9 +48,9 @@ public class CheckReservationServiceImpl implements CheckReservationService {
         //도착 시간이 예약 시간 10분전 이후라면 예약사용 불가
         if (LocalDateTime.now().withSecond(0).withNano(0)
                 .isAfter(reserveShop.getReserveTime().minusMinutes(10))) {
-            //TODO
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.RESERVATION_EXPIRED);
         }
+
         reserveShop.setResStatus(ResShopCode.RESERVE_COMPLETE);
 
         return ResShopDto.from(reserveShop);
