@@ -11,8 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ReviewDto {
 
-    private Long cusId;
-    private Long managerId;
+    private String cusId;
+    private String managerId;
     private Long shopId;
 
 

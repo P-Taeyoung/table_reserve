@@ -12,12 +12,14 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchShopDto {
+    private Long shopId;
     private String shopName;
     private String locate;
 
     public static List<SearchShopDto> from(List<Shop> shops) {
         return shops.stream().map(shop ->
                 SearchShopDto.builder()
+                        .shopId(shop.getId())
                         .shopName(shop.getName())
                         .locate(shop.getLocate())
                         .build())

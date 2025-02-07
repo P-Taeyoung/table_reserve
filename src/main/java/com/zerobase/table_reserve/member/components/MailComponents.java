@@ -1,4 +1,4 @@
-package com.zerobase.table_reserve.components;
+package com.zerobase.table_reserve.member.components;
 
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -13,14 +13,6 @@ import org.springframework.stereotype.Component;
 public class MailComponents {
     private final JavaMailSender javaMailSender;
 
-    public void sendMailTest() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("pty10510@gmail.com");
-        message.setSubject("안녕하세요. 제로베이스입니다.");
-        message.setText(" 안녕하세요. 제로베이스입니다. 메일테스트입니다.");
-
-        javaMailSender.send(message);
-    }
 
     public boolean sendMail(String mail, String subject, String text) {
 

@@ -19,16 +19,16 @@ import org.hibernate.envers.AuditOverride;
 public class Shop extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;//table_id
+    private Long id;//shop_id
 
-    private Long managerId;
+    private String managerId;
     private String name; // 매장명
     private String locate; // 위치
     private String description; // 설명
 
     private Integer reserveLimit; //예약 타임당 예약인원 정원
 
-    public static Shop from(Long id,ShopForm form) {
+    public static Shop from(String id,ShopForm form) {
         return Shop.builder()
                 .managerId(id)
                 .name(form.getName())

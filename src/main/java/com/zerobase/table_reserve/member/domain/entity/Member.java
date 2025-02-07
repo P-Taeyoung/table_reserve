@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -13,22 +15,28 @@ import org.hibernate.envers.AuditOverride;
 @NoArgsConstructor
 @AllArgsConstructor
 @AuditOverride(forClass = BaseEntity.class)
-public class Manager extends BaseEntity {
+public class Member extends BaseEntity {
 
     @Id
     private String id;
     private String password;
     private String name;
     private String phone;
-    private boolean isManagerYn;
 
-    public static Manager from(SignUpForm signUpForm) {
-        return Manager.builder()
+    private boolean emailAuthYn;
+    private String emailAuthKey;
+    private LocalDateTime emailAuthDt;
+
+    private boolean isManager;
+
+    public static Member from(SignUpForm signUpForm) {
+        return Member.builder()
                 .id(signUpForm.getId())
                 .password(signUpForm.getPassword())
                 .name(signUpForm.getName())
                 .phone(signUpForm.getPhone())
-                .isManagerYn(true)
+                .emailAuthKey(signUpForm.getEmailAuthKey())
+                .isManager(signUpForm.isManager())
                 .build();
     }
 

@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class ShopForm {
 
-    private Long managerId;
+    private String managerId;
     private String name;
     private String locate;
     private String description;

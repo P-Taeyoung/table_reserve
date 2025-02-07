@@ -9,7 +9,7 @@ public interface ManagerShopService {
     /**
      * 매장 등록
      */
-    ShopDto regShop(Long managerId, ShopForm form);
+    ShopDto regShop(String managerId, ShopForm form);
 
     /**
      * 매장 수정

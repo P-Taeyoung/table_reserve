@@ -27,7 +27,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public ReviewDto regReview(Long cusId, ReviewForm form) {
+    public ReviewDto regReview(String cusId, ReviewForm form) {
 
         Optional<ResShop> optionalResShop = resShopRepository.findById(form.getRegId());
 
@@ -64,7 +64,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public ReviewDto upReview(Long cusId, Long reviewId, UpdateReviewForm form) {
+    public ReviewDto upReview(String cusId, Long reviewId, UpdateReviewForm form) {
         Optional<Review> optionalReview = reviewRepository.findById(reviewId);
         if (optionalReview.isEmpty()) {
             throw new CustomException(ErrorCode.NOT_FOUND_REVIEW);
@@ -86,7 +86,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public void deleteReview(Long id, Long reviewId) {
+    public void deleteReview(String id, Long reviewId) {
         Optional<Review> optionalReview = reviewRepository.findById(reviewId);
         if (optionalReview.isEmpty()) {
             throw new CustomException(ErrorCode.NOT_FOUND_REVIEW);

@@ -25,7 +25,7 @@ public class ReserveShopServiceImpl implements ReserveShopService {
     private final ShopRepository shopRepository;
 
     @Override
-    public ReqResResponse reserveShop(Long customerId, ReqResForm form){
+    public ReqResResponse reserveShop(String customerId, ReqResForm form){
 
         Optional<Shop> optionalShop = shopRepository.findById(form.getShopId());
 
@@ -46,8 +46,6 @@ public class ReserveShopServiceImpl implements ReserveShopService {
             throw new CustomException(ErrorCode.INVALID_RESERVE_TIME_FORMAT);
         }
         LocalDateTime adjustResTime = adjustTime(resTime);
-
-        //TODO 시간입력을 형식에 맞지 않게 입력했을 때 예외처리해야함
 
         //해당 예약시간은 현재 시간 이후여야 함.
         if (adjustResTime.isBefore(LocalDateTime.now())) {

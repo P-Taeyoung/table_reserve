@@ -20,7 +20,7 @@ public class ManagerShopServiceImpl implements ManagerShopService {
 
     @Override
     @Transactional
-    public ShopDto regShop(Long managerId, ShopForm form) {
+    public ShopDto regShop(String managerId, ShopForm form) {
 
         return ShopDto.from(shopRepository.save(Shop.from(managerId, form)));
     }

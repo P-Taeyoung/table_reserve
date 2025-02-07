@@ -14,8 +14,9 @@ public class ReserveShopController {
 
     private final ReserveShopService reserveShopService;
 
+    //가게 예약
     @PostMapping
-    public ResponseEntity<ReqResResponse> requestReserveShop(@RequestParam Long customerId, @RequestBody ReqResForm form) {
+    public ResponseEntity<ReqResResponse> requestReserveShop(@RequestParam String customerId, @RequestBody ReqResForm form) {
 
         return ResponseEntity.ok(reserveShopService.reserveShop(customerId, form));
     }

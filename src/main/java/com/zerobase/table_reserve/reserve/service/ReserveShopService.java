@@ -7,5 +7,5 @@ public interface ReserveShopService {
     /**
      * 매장 예약
      */
-    ReqResResponse reserveShop(Long customerId, ReqResForm form);
+    ReqResResponse reserveShop(String customerId, ReqResForm form);
 }

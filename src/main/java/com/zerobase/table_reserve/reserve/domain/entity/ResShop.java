@@ -25,8 +25,8 @@ public class ResShop extends BaseEntity implements ResShopCode {
     private Long id;//reserve_id
 
     private Long shopId;
-    private Long cusId;
-    private Long managerId;
+    private String cusId;
+    private String managerId;
 
     private LocalDateTime reserveTime; //예약시간
     private String resStatus; //예약상태

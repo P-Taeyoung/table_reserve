@@ -1,25 +1,32 @@
 package com.zerobase.table_reserve.member.controller;
 
 
-import com.zerobase.table_reserve.member.application.SignUpApplication;
 import com.zerobase.table_reserve.member.domain.form.SignUpForm;
+import com.zerobase.table_reserve.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/signup")
+@RequestMapping("/member/signUp")
 @RequiredArgsConstructor
 public class SignUpController {
 
-    private final SignUpApplication signUpApplication;
+    public final MemberService memberService;
 
-    @PostMapping("/manager")
-    public ResponseEntity<String> managerSignUp(@RequestBody SignUpForm signUpForm) {
-        return ResponseEntity.ok(signUpApplication.managerSignUp(signUpForm));
+
+
+    @PostMapping
+    public ResponseEntity<String> signUp(@RequestBody SignUpForm signUpForm) {
+
+        return ResponseEntity.ok(memberService.signUp(signUpForm));
     }
+
+    @GetMapping("/verify")
+    public ResponseEntity<String> verify(@RequestParam String key) {
+        return ResponseEntity.ok(memberService.verifyEmail(key));
+    }
+
+
 
 }

@@ -3,9 +3,6 @@ package com.zerobase.table_reserve.reserve.domain.shop;
 import com.zerobase.table_reserve.reserve.domain.entity.Shop;
 import lombok.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Getter
 @Setter
 @Builder
@@ -14,7 +11,7 @@ import java.util.stream.Collectors;
 public class ShopDto {
 
     private Long id;
-    private Long managerId;
+    private String managerId;
     private String name;
     private String locate;
     private String description;
