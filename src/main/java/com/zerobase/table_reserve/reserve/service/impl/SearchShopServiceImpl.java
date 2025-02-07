@@ -2,16 +2,15 @@ package com.zerobase.table_reserve.reserve.service.impl;
 
 import com.zerobase.table_reserve.exception.CustomException;
 import com.zerobase.table_reserve.exception.ErrorCode;
-import com.zerobase.table_reserve.reserve.domain.shop.SearchShopDto;
-import com.zerobase.table_reserve.reserve.service.SearchShopService;
-import com.zerobase.table_reserve.reserve.domain.shop.ShopDto;
 import com.zerobase.table_reserve.reserve.domain.repository.ShopRepository;
+import com.zerobase.table_reserve.reserve.domain.shop.SearchShopDto;
+import com.zerobase.table_reserve.reserve.domain.shop.ShopDto;
+import com.zerobase.table_reserve.reserve.service.SearchShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

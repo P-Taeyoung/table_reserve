@@ -1,13 +1,13 @@
 package com.zerobase.table_reserve.security.filter;
 
 
-import com.zerobase.table_reserve.member.domain.common.UserVo;
-import com.zerobase.table_reserve.member.repository.MemberRepository;
 import com.zerobase.table_reserve.security.TokenProvider;
-import jakarta.servlet.*;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -16,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class MemberFilter extends OncePerRequestFilter {
@@ -36,13 +37,16 @@ public class MemberFilter extends OncePerRequestFilter {
 
         String token = resolveTokenFromRequest(request);
 
+
         if (!provider.validateToken(token)) {
+            log.info("유효하지 않은 토큰 값" + token);
             throw new ServletException("Invalid Access");
         }
 
 
         Authentication auth = provider.getAuthentication(token);
         SecurityContextHolder.getContext().setAuthentication(auth);
+        log.info("auth 데이터 " + SecurityContextHolder.getContext().getAuthentication());
 
         filterChain.doFilter(request, response);
     }

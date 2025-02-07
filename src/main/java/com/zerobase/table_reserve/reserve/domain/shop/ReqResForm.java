@@ -2,8 +2,6 @@ package com.zerobase.table_reserve.reserve.domain.shop;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @Builder

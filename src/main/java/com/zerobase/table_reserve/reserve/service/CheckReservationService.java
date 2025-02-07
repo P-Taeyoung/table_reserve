@@ -8,7 +8,7 @@ public interface CheckReservationService {
     /**
      *     사용자가 해당 가게에 도착하면 자신의 예약내역 조회
      */
-    List<ResShopDto> selectReservation(Long customerId, Long shopId);
+    ResShopDto selectReservation(String customerId, Long shopId);
 
     /**
      *     조회 후 해당 예약 사용

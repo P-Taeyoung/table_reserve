@@ -4,8 +4,8 @@ import com.zerobase.table_reserve.exception.CustomException;
 import com.zerobase.table_reserve.exception.ErrorCode;
 import com.zerobase.table_reserve.reserve.domain.entity.ResShop;
 import com.zerobase.table_reserve.reserve.domain.repository.ResShopRepository;
+import com.zerobase.table_reserve.review.domain.dto.ReviewDto;
 import com.zerobase.table_reserve.review.domain.entity.Review;
-import com.zerobase.table_reserve.review.domain.form.ReviewDto;
 import com.zerobase.table_reserve.review.domain.form.ReviewForm;
 import com.zerobase.table_reserve.review.domain.form.UpdateReviewForm;
 import com.zerobase.table_reserve.review.domain.repository.ReviewRepository;
@@ -29,7 +29,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Transactional
     public ReviewDto regReview(String cusId, ReviewForm form) {
 
-        Optional<ResShop> optionalResShop = resShopRepository.findById(form.getRegId());
+        Optional<ResShop> optionalResShop = resShopRepository.findById(form.getResId());
 
         if (optionalResShop.isEmpty()) {
             throw new CustomException(ErrorCode.NOT_FOUND_RESERVATION);
@@ -47,12 +47,18 @@ public class ReviewServiceImpl implements ReviewService {
             throw new CustomException(ErrorCode.REVIEW_AFTER_RESERVATION_COMPLETE);
         }
 
+        //이미 해당 예약내역에 대해 작성된 리뷰가 있는경우
+        Optional<Review> optionalReview = reviewRepository.findByResId(resShop.getId());
+        if (optionalReview.isPresent()) {
+            throw new CustomException(ErrorCode.ALREADY_REVIEW_EXISTS);
+        }
+
         //리뷰작성
         return ReviewDto.from(
                 reviewRepository.save(
                         Review.builder()
                                 .cusId(cusId)
-                                .regId(form.getRegId())
+                                .resId(form.getResId())
                                 .shopId(resShop.getShopId())
                                 .managerId(resShop.getManagerId())
                                 .rating(form.getRating())

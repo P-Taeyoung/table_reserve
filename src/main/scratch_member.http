@@ -3,16 +3,16 @@ POST http://localhost:8080/member/signUp
 Content-Type: application/json
 
 {
-  "manager": true,
-  "id": "emfprhs105@naver.com",
+  "manager": false,
+  "id": "pty10510@gmail.com",
   "password": "123",
-  "name": "TaeYoung",
+  "name": "TaeJin",
   "phone": "010-5123-1234"
 }
 
 
 ###이메일 인증
-GET http://localhost:8080/member/signUp/verify?key=$2a$10$io/ZrUQOYqLAucI1l0AskeL0jnc1iZ0VOK2OrE.O1911ytMfrFNay
+GET http://localhost:8080/member/signUp/verify?key=39a65c62-c05d-4c8f-b9e2-7a6e87e6222d
 
 
 ### 로그인
@@ -20,7 +20,7 @@ POST http://localhost:8080/member/signIn
 Content-Type: application/json
 
 {
-  "userId": "emfprhs105@naver.com",
+  "userId": "pty10510@gmail.com",
   "password": "123"
 }
 

@@ -7,23 +7,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.file.attribute.UserPrincipal;
 
 @RestController
 @RequestMapping("/shop/register")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('MANAGER')")
+@PreAuthorize("hasAuthority('MANAGER')")
 public class ManagerShopController {
     private final ManagerShopService managerShopService;
 
     //매장등록
     @PostMapping
-    public ResponseEntity<?> regShop(@AuthenticationPrincipal UserPrincipal userPrincipal
+    public ResponseEntity<?> regShop(@AuthenticationPrincipal UserDetails userDetails
             ,@RequestBody ShopForm form) {
 
-        return ResponseEntity.ok(managerShopService.regShop(userPrincipal.getName(), form));
+        return ResponseEntity.ok(managerShopService.regShop(userDetails.getUsername(), form));
     }
 
     //등록 매장정보 수정
@@ -36,9 +35,9 @@ public class ManagerShopController {
 
     //등록 매장 제거
     @DeleteMapping
-    public ResponseEntity<Void> deleteShop(@RequestParam Long shopId) {
+    public ResponseEntity<String> deleteShop(@RequestParam Long shopId) {
         managerShopService.deleteShop(shopId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("매장이 정상적으로 삭제되었습니다.");
     }
 
 

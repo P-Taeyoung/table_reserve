@@ -1,6 +1,6 @@
 package com.zerobase.table_reserve.review.service;
 
-import com.zerobase.table_reserve.review.domain.form.ReviewDto;
+import com.zerobase.table_reserve.review.domain.dto.ReviewDto;
 import com.zerobase.table_reserve.review.domain.form.ReviewForm;
 import com.zerobase.table_reserve.review.domain.form.UpdateReviewForm;
 

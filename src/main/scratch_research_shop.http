@@ -1,0 +1,14 @@
+### 매장 검색
+GET http://localhost:8080/search/shop?shopName=맥도
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJPNkNqNkhKREZCaUUvQXlkNmtZOXZ2L2k4VUlSOHpJTXVUT281emRvMTNFPSIsInJvbGVzIjoiTUFOQUdFUiIsImlhdCI6MTczODg5NDE4MywiZXhwIjoxNzM4OTgwNTgzfQ.8Zayez4pNI9MYBUnIb6K5l5F0F-asol0hU-qTpC3b7I
+
+###매장 상세정보 조회
+GET http://localhost:8080/search/shop/detail?shopId=4
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJPNkNqNkhKREZCaUUvQXlkNmtZOXZ2L2k4VUlSOHpJTXVUT281emRvMTNFPSIsInJvbGVzIjoiTUFOQUdFUiIsImlhdCI6MTczODg5NDE4MywiZXhwIjoxNzM4OTgwNTgzfQ.8Zayez4pNI9MYBUnIb6K5l5F0F-asol0hU-qTpC3b7I
+
+
+
+
+
+

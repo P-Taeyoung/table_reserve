@@ -10,16 +10,17 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TokenProvider {
@@ -29,7 +30,7 @@ public class TokenProvider {
 
     private final MemberService memberService;
 
-    private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final Key secretKey = Keys.hmacShaKeyFor("your-very-secure-and-long-secret-key!".getBytes(StandardCharsets.UTF_8));
 
     private final long tokenValidTime = 1000L * 60 * 60 * 24;
 
@@ -65,9 +66,3 @@ public class TokenProvider {
     }
 }
 
-class SecretKeyValidator {
-    public static void main(String[] args) {
-        String encrypted = Aes256Util.encrypt("test@example.com");
-        System.out.println(encrypted);
-    }
-}

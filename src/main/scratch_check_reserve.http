@@ -1,0 +1,9 @@
+### 예약내역 조회
+GET http://localhost:8080/reserve/check?shopId=4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNM0lYSW5MaDZwTG1YU2t4WFNGczNlUE1KbDFHSUNBYllOdlFlVUtzMGJZPSIsInJvbGVzIjoiQ1VTVE9NRVIiLCJpYXQiOjE3Mzg5MDYxODksImV4cCI6MTczODk5MjU4OX0.ZlGDjQ7bao7kTgzFjZOv0ZjfEvrvL7yOGk-xM_wJJyo
+
+### 예약 사용
+PUT http://localhost:8080/reserve/use?reserveId=10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNM0lYSW5MaDZwTG1YU2t4WFNGczNlUE1KbDFHSUNBYllOdlFlVUtzMGJZPSIsInJvbGVzIjoiQ1VTVE9NRVIiLCJpYXQiOjE3Mzg5MDYxODksImV4cCI6MTczODk5MjU4OX0.ZlGDjQ7bao7kTgzFjZOv0ZjfEvrvL7yOGk-xM_wJJyo

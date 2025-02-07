@@ -6,8 +6,6 @@ import jakarta.persistence.Id;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @Setter
@@ -25,7 +23,6 @@ public class Member extends BaseEntity {
 
     private boolean emailAuthYn;
     private String emailAuthKey;
-    private LocalDateTime emailAuthDt;
 
     private boolean isManager;
 

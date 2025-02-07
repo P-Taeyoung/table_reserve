@@ -52,13 +52,19 @@ public class ReserveShopServiceImpl implements ReserveShopService {
             throw new CustomException(ErrorCode.IMPOSSIBLE_RESERVE_TIME);
         }
 
+
+        // 해당 예약시간에 예약정원이 차있으면 예약 불가
         int totalGuests = resShopRepository.sumNumOfGuestsByShopIdAndReserveTime(form.getShopId(), adjustResTime) != null
                 ? resShopRepository.sumNumOfGuestsByShopIdAndReserveTime(form.getShopId(), adjustResTime) : 0;
 
-
-        // 해당 예약시간에 예약정원이 차있으면 예약 불가
         if (shop.getReserveLimit() < totalGuests + form.getNumOfGuests()) {
             throw new CustomException(ErrorCode.FULLY_RESERVED);
+        }
+
+        // 같은 시간에 중복 예약 불가
+        Optional<ResShop> optionalResShop = resShopRepository.findByCusIdAndReserveTime(customerId, adjustResTime);
+        if (optionalResShop.isPresent()) {
+            throw new CustomException(ErrorCode.RESERVATION_ALREADY_EXISTS);
         }
 
         // 예약처리

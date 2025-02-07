@@ -5,22 +5,26 @@ import com.zerobase.table_reserve.reserve.service.CheckReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/reserve")
+@PreAuthorize("hasAuthority('CUSTOMER')")
 public class CheckReservationController {
 
     private final CheckReservationService checkReservationService;
 
     //예약목록 조회
-    @GetMapping("/select")
-    public ResponseEntity<List<ResShopDto>> selectReservation (@RequestParam Long customerId, @RequestParam Long shopId) {
-        List<ResShopDto> resShopDtos= checkReservationService.selectReservation(customerId, shopId);
-        return ResponseEntity.ok(resShopDtos);
+    @GetMapping("/check")
+    public ResponseEntity<?> selectReservation (@AuthenticationPrincipal UserDetails userDetails, @RequestParam Long shopId) {
+        ResShopDto resShopDto= checkReservationService.selectReservation(userDetails.getUsername(), shopId);
+        if(resShopDto==null){
+            return ResponseEntity.ok("사용가능한 예약내역이 없습니다.");
+        }
+        return ResponseEntity.ok(resShopDto);
     }
 
     //예약사용

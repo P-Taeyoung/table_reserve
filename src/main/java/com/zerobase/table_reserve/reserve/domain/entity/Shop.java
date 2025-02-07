@@ -1,7 +1,7 @@
 package com.zerobase.table_reserve.reserve.domain.entity;
 
-import com.zerobase.table_reserve.reserve.domain.shop.ShopForm;
 import com.zerobase.table_reserve.member.domain.entity.BaseEntity;
+import com.zerobase.table_reserve.reserve.domain.shop.ShopForm;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +16,7 @@ import org.hibernate.envers.AuditOverride;
 @NoArgsConstructor
 @AllArgsConstructor
 @AuditOverride(forClass = BaseEntity.class)
+//매장 엔티티
 public class Shop extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

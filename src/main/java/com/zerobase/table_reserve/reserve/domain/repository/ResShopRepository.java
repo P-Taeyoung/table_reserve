@@ -17,11 +17,14 @@ public interface ResShopRepository extends JpaRepository<ResShop, Long> {
     Integer sumNumOfGuestsByShopIdAndReserveTime(@Param("shopId") Long shopId, @Param("reserveTime") LocalDateTime reserveTime);
 
     @Query("SELECT r FROM ResShop r " +
-            "WHERE r.shopId = :shopId AND r.cusId = :cusId AND r.resStatus = 'BEFORE'")
-    List<ResShop> findByCusIdAndShopId(@Param("shopId") Long shopId, @Param("cusId") Long cusId);
+            "WHERE r.shopId = :shopId AND r.cusId = :cusId AND r.resStatus = 'BEFORE'" +
+            "ORDER BY r.reserveTime ASC")
+    List<ResShop> findByCusIdAndShopId(@Param("shopId") Long shopId, @Param("cusId") String cusId);
 
     @Query("SELECT r FROM ResShop r WHERE r.id = :reserveId AND r.resStatus = 'BEFORE'")
     Optional<ResShop> findByIdAndResStatus(@Param("reserveId") Long reserveId);
+
+    Optional<ResShop> findByCusIdAndReserveTime(String cusId, LocalDateTime reserveTime);
 
 }
 

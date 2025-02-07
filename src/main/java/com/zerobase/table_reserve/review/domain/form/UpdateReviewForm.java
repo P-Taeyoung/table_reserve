@@ -9,6 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateReviewForm {
-    private Rating Rating;
+    private Rating rating;
     private String contents;
 }

@@ -1,0 +1,30 @@
+### 리뷰등록
+POST http://localhost:8080/review
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNM0lYSW5MaDZwTG1YU2t4WFNGczNlUE1KbDFHSUNBYllOdlFlVUtzMGJZPSIsInJvbGVzIjoiQ1VTVE9NRVIiLCJpYXQiOjE3Mzg5MDYxODksImV4cCI6MTczODk5MjU4OX0.ZlGDjQ7bao7kTgzFjZOv0ZjfEvrvL7yOGk-xM_wJJyo
+
+{
+  "resId": 9,
+  "contents": "맛있었어요",
+  "rating": "FIVE"
+}
+
+
+
+### 리뷰수정
+PUT http://localhost:8080/review?reviewId=5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNM0lYSW5MaDZwTG1YU2t4WFNGczNlUE1KbDFHSUNBYllOdlFlVUtzMGJZPSIsInJvbGVzIjoiQ1VTVE9NRVIiLCJpYXQiOjE3Mzg5MDYxODksImV4cCI6MTczODk5MjU4OX0.ZlGDjQ7bao7kTgzFjZOv0ZjfEvrvL7yOGk-xM_wJJyo
+
+{
+  "contents":"너무 맛있어요",
+  "rating": "FIVE"
+}
+
+### 리뷰삭제
+DELETE http://localhost:8080/review?reviewId=4
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNM0lYSW5MaDZwTG1YU2t4WFNGczNlUE1KbDFHSUNBYllOdlFlVUtzMGJZPSIsInJvbGVzIjoiQ1VTVE9NRVIiLCJpYXQiOjE3Mzg5MDYxODksImV4cCI6MTczODk5MjU4OX0.ZlGDjQ7bao7kTgzFjZOv0ZjfEvrvL7yOGk-xM_wJJyo
+
+
+
+

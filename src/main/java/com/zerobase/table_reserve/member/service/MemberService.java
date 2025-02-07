@@ -8,18 +8,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface MemberService extends UserDetailsService {
 
     /**
-     * 점장 회원 가입
+     * 회원 가입
      */
     String signUp(SignUpForm signUpForm);
 
     /**
-     * 점장 이메일 인증
+     * 이메일 인증
      */
     String verifyEmail(String key);
 
     /**
-     * 점장 로그인
-     * 점장 토큰 반환
+     * 로그인
+     * 토큰 반환
      */
     MemberDto signIn(SignInForm signInForm);
 }

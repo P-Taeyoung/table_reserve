@@ -10,8 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ReviewForm{
 
-    private Long regId;
+    private Long resId;
 
-    private Rating Rating;
+    private Rating rating;
     private String contents;
 }

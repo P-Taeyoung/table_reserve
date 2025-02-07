@@ -1,25 +1,31 @@
 ### 매장 등록
-POST http://localhost:8080/member/shop/register?managerId=4
+POST http://localhost:8080/shop/register
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNM0lYSW5MaDZwTG1YU2t4WFNGczNlUE1KbDFHSUNBYllOdlFlVUtzMGJZPSIsInJvbGVzIjoiQ1VTVE9NRVIiLCJpYXQiOjE3Mzg5MDYxODksImV4cCI6MTczODk5MjU4OX0.ZlGDjQ7bao7kTgzFjZOv0ZjfEvrvL7yOGk-xM_wJJyo
+
 
 {
-  "managerId": 2,
-  "name": "맥도날드2",
+  "name": "맥도날드8",
   "locate": "중랑구",
-  "description": "중랑구 상봉동",
+  "description": "",
   "reserveLimit": 10
 }
 
 ### 매장 수정
-PUT http://localhost:8080/member/shop/register?shopId=1
+PUT http://localhost:8080/shop/register?shopId=4
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJPNkNqNkhKREZCaUUvQXlkNmtZOXZ2L2k4VUlSOHpJTXVUT281emRvMTNFPSIsInJvbGVzIjoiTUFOQUdFUiIsImlhdCI6MTczODg5NDE4MywiZXhwIjoxNzM4OTgwNTgzfQ.8Zayez4pNI9MYBUnIb6K5l5F0F-asol0hU-qTpC3b7I
+
 
 {
   "name": "맥도날드3",
   "locate": "중랑구",
-  "description": "위치변경하였습니다."
+  "description": "위치변경하였습니다.",
+  "reserveLimit": 11
 }
 
 ### 매장 삭제
-DELETE http://localhost:8080/member/shop/register?shopId=2
+DELETE http://localhost:8080/shop/register?shopId=9
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJPNkNqNkhKREZCaUUvQXlkNmtZOXZ2L2k4VUlSOHpJTXVUT281emRvMTNFPSIsInJvbGVzIjoiTUFOQUdFUiIsImlhdCI6MTczODg5NDE4MywiZXhwIjoxNzM4OTgwNTgzfQ.8Zayez4pNI9MYBUnIb6K5l5F0F-asol0hU-qTpC3b7I
+
 

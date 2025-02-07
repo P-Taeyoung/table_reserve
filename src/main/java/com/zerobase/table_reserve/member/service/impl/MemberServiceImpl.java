@@ -1,5 +1,7 @@
 package com.zerobase.table_reserve.member.service.impl;
 
+import com.zerobase.table_reserve.exception.CustomException;
+import com.zerobase.table_reserve.exception.ErrorCode;
 import com.zerobase.table_reserve.member.components.MailComponents;
 import com.zerobase.table_reserve.member.domain.common.UserType;
 import com.zerobase.table_reserve.member.domain.dto.MemberDto;
@@ -8,7 +10,6 @@ import com.zerobase.table_reserve.member.domain.form.SignInForm;
 import com.zerobase.table_reserve.member.domain.form.SignUpForm;
 import com.zerobase.table_reserve.member.repository.MemberRepository;
 import com.zerobase.table_reserve.member.service.MemberService;
-import com.zerobase.table_reserve.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
     public String signUp(SignUpForm signUpForm) {
         // 이미 가입한 이메일이 있는지 확인
         if (memberRepository.findById(signUpForm.getId()).isPresent()) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.ALREADY_EXISTS_ID);
         }
 
         //이메일 인증키
@@ -56,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
         mailComponents.sendMail(email, subject, text);
 
 
-        return "테이블 예약 파트너 가입이 완료되었습니다.";
+        return "테이블 예약 가입이 완료되었습니다.";
     }
 
     @Override
@@ -66,14 +67,14 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> managerOptional = memberRepository.findByEmailAuthKey(key);
         if (managerOptional.isEmpty()) {
             // invalid emailAuthKey
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.INVALID_EMAIL_AUTH_KEY);
         }
 
         Member member = managerOptional.get();
 
         if (member.isEmailAuthYn()) {
             // Already have emailAuth
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.ALREADY_EMAIL_AUTH);
         }
 
         member.setEmailAuthYn(true);
@@ -88,12 +89,12 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> optionalManager = memberRepository.findById(signInForm.getUserId());
         //아이디가 있는지
         if (optionalManager.isEmpty()) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.NOT_FOUND_USER);
         }
         Member member = optionalManager.get();
         //비밀번호가 일치하는지
         if (!BCrypt.checkpw(signInForm.getPassword(), member.getPassword())) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.INVALID_PASSWORD);
         }
 
         return MemberDto.builder()
@@ -114,10 +115,12 @@ public class MemberServiceImpl implements MemberService {
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
+        //점장이면 점장 권한을 고객이면 고객권한을 부여
         if (member.isManager()) {
             grantedAuthorities.add(new SimpleGrantedAuthority(UserType.MANAGER.toString()));
+        } else {
+            grantedAuthorities.add(new SimpleGrantedAuthority(UserType.CUSTOMER.toString()));
         }
-        grantedAuthorities.add(new SimpleGrantedAuthority(UserType.CUSTOMER.toString()));
 
         return new User(member.getId(), member.getPassword(), grantedAuthorities);
     }
