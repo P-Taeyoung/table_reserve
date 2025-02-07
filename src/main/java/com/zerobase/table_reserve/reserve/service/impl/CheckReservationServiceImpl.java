@@ -30,7 +30,7 @@ public class CheckReservationServiceImpl implements CheckReservationService {
             throw new CustomException(ErrorCode.NOT_FOUND_RESERVATION);
         }
 
-        //현재 시간이 예약시간 10분 전이 지난 예약내역은 예약취소상태로 바꿈
+        //현재 시간이 예약시간 10분 이후인 예약내역은 예약취소상태로 바꿈
         //예약목록 중 사용가능한 예약 내역중 제일 예약 시간이 빠른 것 하나를 반환
         for (ResShop resShop : resShops) {
             if (LocalDateTime.now().withSecond(0).withNano(0)
@@ -41,6 +41,7 @@ public class CheckReservationServiceImpl implements CheckReservationService {
             }
         }
 
+        //만약 사용가능한 예약 목록이 없는 경우에는 null 반환
         return null;
     }
 
